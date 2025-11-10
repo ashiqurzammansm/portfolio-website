@@ -1,6 +1,5 @@
-// ==== Portfolio + About Data (from CV) ====
+// ==== Portfolio + About Data ====
 
-// ---------- Projects (keep or edit later) ----------
 export type Project = {
     title: string;
     tag: "web" | "mobile" | "design" | "other";
@@ -40,32 +39,17 @@ export const posts = [
     { slug: "kid-coder", title: "Tips for Young Coders", date: "2025-02-22" },
 ];
 
-// ---------- About: Primary profile ----------
+// ---------- Profile ----------
 export const profile = {
-    name: "SM ASHIQURZAMMAN",
+    name: "SM ASHIQUR ZAMAN",
     location: "Dhaka, Bangladesh",
     email: "ashiqurzamman@gmail.com",
     phonePrimary: "+8801410710150",
     phoneAlt: "+8801714010150",
     linkedin: "https://www.linkedin.com/in/smashiqurzamman",
     summary:
-        "Skilled Software Engineer with 5+ years in web and 1+ year in mobile app development. Experienced in MERN, Flutter, and Android (Kotlin). Focused on secure, user-friendly, scalable solutions; passionate about technology, continuous learning, and teaching.",
+        "Skilled Software Engineer with 5+ years in web and 1+ year in mobile app development. Experienced in MERN, Flutter, and Android (Kotlin). Focused on secure, user-friendly, and scalable solutions; passionate about technology, continuous learning, and teaching.",
 };
-
-// ---------- Skills (grouped) ----------
-export const skills: string[] = [
-    // Web
-    "React.js", "Next.js", "Node.js", "Express.js", "MongoDB", "REST APIs",
-    // Mobile
-    "Flutter (Cross-Platform)", "Android (Kotlin, Jetpack Compose)", "Firebase",
-    // Programming
-    "JavaScript (ES6+)", "TypeScript", "Kotlin", "Dart",
-    // Tools
-    "Android Studio", "VS Code", "IntelliJ IDEA", "WebStorm", "Git & GitHub", "Postman", "Figma",
-    // Other / Soft
-    "Database Design", "UI/UX Implementation", "Responsive Design", "Documentation",
-    "Problem-Solving", "Teamwork", "Adaptability", "Communication", "Continuous Learning",
-];
 
 // ---------- Experience ----------
 export type Experience = {
@@ -136,7 +120,7 @@ export const experience: Experience[] = [
     },
 ];
 
-// ---------- Volunteer (optional, shown under Experience if you want) ----------
+// ---------- Volunteer ----------
 export const volunteer: Experience[] = [
     {
         role: "Associate Member",
@@ -228,18 +212,85 @@ export const certifications: Certification[] = [
     },
 ];
 
-// ---------- Languages ----------
+// ---------- Languages / Licenses ----------
 export const languages = [
     { name: "Bengali", level: "Native" },
     { name: "English", level: "Conversational" },
     { name: "Chinese", level: "Conversational (HSK-2, 2019)" },
 ];
 
-// ---------- License (optional) ----------
 export const licenses = [
     {
         name: "Software Engineer (Govt. Freelancer ID Card)",
         issuer: "Department of ICT, People’s Republic of Bangladesh",
         valid: "2022 — Present",
+    },
+];
+
+// ---------- Grouped Skills (with emoji logos) ----------
+export type SkillItem = { name: string; icon?: string };
+export type SkillCategory = { name: string; items: SkillItem[] };
+export type SkillGroup = { title: string; categories: SkillCategory[] };
+
+export const skillGroups: SkillGroup[] = [
+    {
+        title: "💻 Web Development (MERN & Next.js)",
+        categories: [
+            {
+                name: "Frontend",
+                items: [
+                    { name: "React.js", icon: "⚛️" },
+                    { name: "Next.js", icon: "🌀" },
+                    { name: "TypeScript", icon: "🟦" },
+                    { name: "Tailwind CSS", icon: "🎨" },
+                ],
+            },
+            {
+                name: "Backend",
+                items: [
+                    { name: "Node.js", icon: "🟩" },
+                    { name: "Express.js", icon: "🟨" },
+                    { name: "MongoDB", icon: "🟩" },
+                    { name: "JWT", icon: "🔒" },
+                ],
+            },
+            {
+                name: "Tools & Deployment",
+                items: [
+                    { name: "Git / GitHub", icon: "🧠" },
+                    { name: "Postman", icon: "📮" },
+                    { name: "Figma", icon: "🎨" },
+                    { name: "Vercel / Render", icon: "☁️" },
+                ],
+            },
+        ],
+    },
+    {
+        title: "📱 Android App Development (Kotlin)",
+        categories: [
+            {
+                name: "Core",
+                items: [
+                    { name: "Android", icon: "🤖" },
+                    { name: "Kotlin", icon: "🟣" },
+                    { name: "Android Jetpack", icon: "🧩" },
+                    { name: "MVVM Architecture", icon: "🧭" },
+                ],
+            },
+            {
+                name: "Data & Network",
+                items: [
+                    { name: "Retrofit", icon: "🔗" },
+                    { name: "Room DB", icon: "🧱" },
+                    { name: "Firebase", icon: "☁️" },
+                ],
+            },
+            {
+                name: "Tools",
+                items: [
+                    { name: "Git / GitHub", icon: "🧠" },
+                ],
+            },
+        ],
     },
 ];

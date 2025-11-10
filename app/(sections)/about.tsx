@@ -1,9 +1,11 @@
 "use client";
 import MotionSection from "@/components/motion-section";
 import { Timeline, TimelineItem } from "@/components/timeline";
+import SkillsGrid from "@/components/skills-grid";
 import {
-    profile, skills, experience, volunteer,
-    education, certifications, languages, licenses
+    profile, experience, volunteer,
+    education, certifications, languages, licenses,
+    skillGroups
 } from "@/lib/data";
 import { Download } from "lucide-react";
 import { motion } from "framer-motion";
@@ -22,7 +24,6 @@ export default function About() {
                         </p>
                     </div>
 
-                    {/* Actions */}
                     <div className="flex flex-wrap gap-3">
                         <Magnetic>
                             <motion.a
@@ -37,14 +38,12 @@ export default function About() {
                                 Download Resume
                             </motion.a>
                         </Magnetic>
-
                         <Magnetic>
                             <a
                                 href={profile.linkedin}
                                 target="_blank"
                                 rel="noreferrer"
                                 className="button cursor-link"
-                                aria-label="Open LinkedIn profile"
                             >
                                 LinkedIn
                             </a>
@@ -52,19 +51,15 @@ export default function About() {
                     </div>
                 </header>
 
-                {/* Skills */}
+                {/* ✅ Skills (grouped with logos) */}
                 <section aria-label="Skills" className="space-y-4">
                     <h3 className="font-semibold text-lg">Skills</h3>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-                        {skills.map((s) => (
-                            <div key={s} className="card px-4 py-3 text-center text-sm cursor-link">{s}</div>
-                        ))}
-                    </div>
+                    <SkillsGrid groups={skillGroups} />
                 </section>
 
                 {/* Main grid */}
                 <div className="grid xl:grid-cols-3 gap-8">
-                    {/* Experience + Volunteer */}
+                    {/* Work + Volunteer */}
                     <section aria-label="Experience" className="xl:col-span-2 space-y-8">
                         <div className="space-y-4">
                             <h3 className="font-semibold text-lg">Work Experience</h3>
@@ -137,7 +132,9 @@ export default function About() {
                                             <div className="opacity-70">
                                                 {c.issuer} • {c.date}
                                                 {c.url && (
-                                                    <a className="underline ms-1 cursor-link" href={c.url} target="_blank" rel="noreferrer">Verify</a>
+                                                    <a className="underline ms-1 cursor-link" href={c.url} target="_blank" rel="noreferrer">
+                                                        Verify
+                                                    </a>
                                                 )}
                                             </div>
                                         </li>
