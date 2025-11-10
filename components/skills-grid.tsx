@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import type { SkillGroup } from "@/lib/data";
+import TechIcon from "@/components/tech-icon";
 
 export default function SkillsGrid({ groups }: { groups: SkillGroup[] }) {
     return (
@@ -21,13 +22,17 @@ export default function SkillsGrid({ groups }: { groups: SkillGroup[] }) {
                                 <div className="mb-3 text-sm font-medium opacity-80">{cat.name}</div>
                                 <div className="flex flex-wrap gap-2">
                                     {cat.items.map((item) => (
-                                        <span
+                                        <motion.span
                                             key={`${cat.name}-${item.name}`}
-                                            className="inline-flex items-center gap-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/70 dark:bg-slate-900/60 px-3 py-2 text-sm"
+                                            whileHover={{ scale: 1.04 }}
+                                            className="inline-flex items-center gap-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/70 px-3 py-2 text-sm transition cursor-default"
+                                            style={{ boxShadow: "0 0 0px rgba(0,0,0,0)" }}
                                         >
-                      {item.icon ? <span className="text-base">{item.icon}</span> : null}
+                                            {item.slug && (
+                                                <TechIcon slug={item.slug as any} className="drop-shadow-sm" />
+                                            )}
                                             <span>{item.name}</span>
-                    </span>
+                                        </motion.span>
                                     ))}
                                 </div>
                             </motion.div>

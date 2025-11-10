@@ -1,5 +1,8 @@
-// ==== Portfolio + About Data ====
+// ===============================
+// 📄 lib/data.ts
+// ===============================
 
+// ---------- Project Type ----------
 export type Project = {
     title: string;
     tag: "web" | "mobile" | "design" | "other";
@@ -9,6 +12,7 @@ export type Project = {
     summary: string;
 };
 
+// ---------- Portfolio Projects ----------
 export const projects: Project[] = [
     {
         title: "SaaS Dashboard (Demo)",
@@ -33,7 +37,7 @@ export const projects: Project[] = [
     },
 ];
 
-// ---------- Blog placeholders ----------
+// ---------- Blog ----------
 export const posts = [
     { slug: "hello-world", title: "Hello, Internet!", date: "2025-01-10" },
     { slug: "kid-coder", title: "Tips for Young Coders", date: "2025-02-22" },
@@ -57,7 +61,7 @@ export type Experience = {
     company: string;
     location?: string;
     start: string;
-    end: string; // "Present" when ongoing
+    end: string;
     points: string[];
 };
 
@@ -120,7 +124,7 @@ export const experience: Experience[] = [
     },
 ];
 
-// ---------- Volunteer ----------
+// ---------- Volunteer Experience ----------
 export const volunteer: Experience[] = [
     {
         role: "Associate Member",
@@ -152,7 +156,6 @@ export type Education = {
     location?: string;
     start: string;
     end: string;
-    highlights?: string[];
 };
 
 export const education: Education[] = [
@@ -180,7 +183,7 @@ export const education: Education[] = [
 export type Certification = {
     name: string;
     issuer: string;
-    date: string; // e.g., "Mar 2025"
+    date: string;
     url?: string;
 };
 
@@ -212,13 +215,14 @@ export const certifications: Certification[] = [
     },
 ];
 
-// ---------- Languages / Licenses ----------
+// ---------- Languages ----------
 export const languages = [
     { name: "Bengali", level: "Native" },
     { name: "English", level: "Conversational" },
     { name: "Chinese", level: "Conversational (HSK-2, 2019)" },
 ];
 
+// ---------- Licenses ----------
 export const licenses = [
     {
         name: "Software Engineer (Govt. Freelancer ID Card)",
@@ -227,8 +231,8 @@ export const licenses = [
     },
 ];
 
-// ---------- Grouped Skills (with emoji logos) ----------
-export type SkillItem = { name: string; icon?: string };
+// ---------- Skills with SVG logo slugs ----------
+export type SkillItem = { name: string; slug?: string };
 export type SkillCategory = { name: string; items: SkillItem[] };
 export type SkillGroup = { title: string; categories: SkillCategory[] };
 
@@ -239,28 +243,28 @@ export const skillGroups: SkillGroup[] = [
             {
                 name: "Frontend",
                 items: [
-                    { name: "React.js", icon: "⚛️" },
-                    { name: "Next.js", icon: "🌀" },
-                    { name: "TypeScript", icon: "🟦" },
-                    { name: "Tailwind CSS", icon: "🎨" },
+                    { name: "React.js", slug: "react" },
+                    { name: "Next.js", slug: "nextjs" },
+                    { name: "TypeScript", slug: "typescript" },
+                    { name: "Tailwind CSS", slug: "tailwind" },
                 ],
             },
             {
                 name: "Backend",
                 items: [
-                    { name: "Node.js", icon: "🟩" },
-                    { name: "Express.js", icon: "🟨" },
-                    { name: "MongoDB", icon: "🟩" },
-                    { name: "JWT", icon: "🔒" },
+                    { name: "Node.js", slug: "node" },
+                    { name: "Express.js", slug: "express" },
+                    { name: "MongoDB", slug: "mongodb" },
+                    { name: "JWT", slug: "jwt" },
                 ],
             },
             {
                 name: "Tools & Deployment",
                 items: [
-                    { name: "Git / GitHub", icon: "🧠" },
-                    { name: "Postman", icon: "📮" },
-                    { name: "Figma", icon: "🎨" },
-                    { name: "Vercel / Render", icon: "☁️" },
+                    { name: "Git / GitHub", slug: "github" },
+                    { name: "Postman", slug: "postman" },
+                    { name: "Figma", slug: "figma" },
+                    { name: "Vercel / Render", slug: "vercel" },
                 ],
             },
         ],
@@ -271,25 +275,23 @@ export const skillGroups: SkillGroup[] = [
             {
                 name: "Core",
                 items: [
-                    { name: "Android", icon: "🤖" },
-                    { name: "Kotlin", icon: "🟣" },
-                    { name: "Android Jetpack", icon: "🧩" },
-                    { name: "MVVM Architecture", icon: "🧭" },
+                    { name: "Android", slug: "android" },
+                    { name: "Kotlin", slug: "kotlin" },
+                    { name: "Android Jetpack", slug: "jetpack" },
+                    { name: "MVVM Architecture", slug: "mvvm" },
                 ],
             },
             {
                 name: "Data & Network",
                 items: [
-                    { name: "Retrofit", icon: "🔗" },
-                    { name: "Room DB", icon: "🧱" },
-                    { name: "Firebase", icon: "☁️" },
+                    { name: "Retrofit", slug: "retrofit" },
+                    { name: "Room DB", slug: "room" },
+                    { name: "Firebase", slug: "firebase" },
                 ],
             },
             {
                 name: "Tools",
-                items: [
-                    { name: "Git / GitHub", icon: "🧠" },
-                ],
+                items: [{ name: "Git / GitHub", slug: "git" }],
             },
         ],
     },
