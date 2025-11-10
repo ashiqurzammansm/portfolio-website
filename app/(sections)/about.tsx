@@ -7,7 +7,7 @@ import {
     education, certifications, languages, licenses,
     skillGroups
 } from "@/lib/data";
-import { Download } from "lucide-react";
+import { Download, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 import Magnetic from "@/components/magnetic";
 
@@ -51,61 +51,58 @@ export default function About() {
                     </div>
                 </header>
 
-                {/* ✅ Skills (grouped with logos) */}
+                {/* Skills Section */}
                 <section aria-label="Skills" className="space-y-4">
                     <h3 className="font-semibold text-lg">Skills</h3>
                     <SkillsGrid groups={skillGroups} />
                 </section>
 
-                {/* Main grid */}
-                <div className="grid xl:grid-cols-3 gap-8">
-                    {/* Work + Volunteer */}
-                    <section aria-label="Experience" className="xl:col-span-2 space-y-8">
+                {/* ====== Main Grid Layout ====== */}
+                <div className="grid xl:grid-cols-12 gap-8 items-start">
+                    {/* LEFT (8 cols): Work, Education, Volunteer */}
+                    <section className="xl:col-span-8 space-y-8">
+                        {/* Work Experience */}
                         <div className="space-y-4">
                             <h3 className="font-semibold text-lg">Work Experience</h3>
                             <div className="card p-6">
                                 <Timeline>
-                                    {experience.map((job) => (
+                                    {experience.map((job, idx) => (
                                         <TimelineItem
                                             key={`${job.role}-${job.company}-${job.start}`}
                                             title={job.role}
                                             subtitle={`${job.company}${job.location ? ` • ${job.location}` : ""}`}
                                             period={`${job.start} — ${job.end}`}
                                         >
-                                            <ul className="list-disc ms-5 space-y-1">
-                                                {job.points.map((p, i) => <li key={i}>{p}</li>)}
-                                            </ul>
+                                            <motion.ul
+                                                className="list-disc ms-5 space-y-1"
+                                                initial="hidden"
+                                                whileInView="show"
+                                                viewport={{ once: true, amount: 0.25 }}
+                                                variants={{
+                                                    hidden: { opacity: 1 },
+                                                    show: {
+                                                        opacity: 1,
+                                                        transition: { staggerChildren: 0.06, delayChildren: 0.03 * idx },
+                                                    },
+                                                }}
+                                            >
+                                                {job.points.map((p, i) => (
+                                                    <motion.li
+                                                        key={i}
+                                                        variants={{ hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0 } }}
+                                                        transition={{ duration: 0.25 }}
+                                                    >
+                                                        {p}
+                                                    </motion.li>
+                                                ))}
+                                            </motion.ul>
                                         </TimelineItem>
                                     ))}
                                 </Timeline>
                             </div>
                         </div>
 
-                        {volunteer.length > 0 && (
-                            <div className="space-y-4">
-                                <h3 className="font-semibold text-lg">Volunteer Experience</h3>
-                                <div className="card p-6">
-                                    <Timeline>
-                                        {volunteer.map((v) => (
-                                            <TimelineItem
-                                                key={`${v.role}-${v.company}-${v.start}`}
-                                                title={v.role}
-                                                subtitle={v.company}
-                                                period={`${v.start} — ${v.end}`}
-                                            >
-                                                <ul className="list-disc ms-5 space-y-1">
-                                                    {v.points.map((p, i) => <li key={i}>{p}</li>)}
-                                                </ul>
-                                            </TimelineItem>
-                                        ))}
-                                    </Timeline>
-                                </div>
-                            </div>
-                        )}
-                    </section>
-
-                    {/* Sidebar */}
-                    <aside className="space-y-8">
+                        {/* Education */}
                         <section aria-label="Education" className="space-y-4">
                             <h3 className="font-semibold text-lg">Education</h3>
                             <div className="card p-6 space-y-4">
@@ -122,38 +119,98 @@ export default function About() {
                             </div>
                         </section>
 
-                        <section aria-label="Certifications" className="space-y-4">
+                        {/* Volunteer Experience */}
+                        {volunteer.length > 0 && (
+                            <section aria-label="Volunteer" className="space-y-4">
+                                <h3 className="font-semibold text-lg">Volunteer Experience</h3>
+                                <div className="card p-6">
+                                    <Timeline>
+                                        {volunteer.map((v) => (
+                                            <TimelineItem
+                                                key={`${v.role}-${v.company}-${v.start}`}
+                                                title={v.role}
+                                                subtitle={v.company}
+                                                period={`${v.start} — ${v.end}`}
+                                            >
+                                                <ul className="list-disc ms-5 space-y-1">
+                                                    {v.points.map((p, i) => (
+                                                        <li key={i}>{p}</li>
+                                                    ))}
+                                                </ul>
+                                            </TimelineItem>
+                                        ))}
+                                    </Timeline>
+                                </div>
+                            </section>
+                        )}
+                    </section>
+
+                    {/* RIGHT (4 cols): Certifications, Languages, License */}
+                    <aside className="xl:col-span-4 space-y-8 xl:sticky xl:top-24 self-start">
+                        {/* Certifications & Training */}
+                        <section className="space-y-4">
                             <h3 className="font-semibold text-lg">Certifications & Training</h3>
-                            <div className="card p-6 space-y-3">
-                                <ul className="space-y-3">
-                                    {certifications.map((c) => (
-                                        <li key={`${c.name}-${c.date}`} className="text-sm">
-                                            <div className="font-medium">{c.name}</div>
-                                            <div className="opacity-70">
-                                                {c.issuer} • {c.date}
-                                                {c.url && (
-                                                    <a className="underline ms-1 cursor-link" href={c.url} target="_blank" rel="noreferrer">
-                                                        Verify
-                                                    </a>
-                                                )}
-                                            </div>
+                            <div className="space-y-4">
+                                {certifications.map((c, idx) => (
+                                    <motion.article
+                                        key={`${c.name}-${c.date}`}
+                                        className="card p-5 transition hover:shadow-md hover:ring-blue-300/40 dark:hover:ring-blue-700/25"
+                                        initial={{ opacity: 0, y: 10 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true, amount: 0.25 }}
+                                        transition={{ duration: 0.3, delay: idx * 0.05 }}
+                                    >
+                                        <h4 className="font-semibold leading-tight">{c.name}</h4>
+                                        <div className="opacity-70 text-sm mt-0.5">
+                                            {c.issuer} • {c.date}
+                                        </div>
+
+                                        <div className="mt-4 flex flex-wrap gap-2">
+                                            <Magnetic>
+                                                <a
+                                                    className="button cursor-link"
+                                                    href={c.verifyUrl}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    aria-label={`Verify ${c.name}`}
+                                                >
+                                                    <ExternalLink size={16} />
+                                                    Verify Link
+                                                </a>
+                                            </Magnetic>
+                                            <Magnetic>
+                                                <a
+                                                    className="button cursor-link"
+                                                    href={c.certificateUrl}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    aria-label={`View certificate for ${c.name}`}
+                                                >
+                                                    <Download size={16} />
+                                                    View Certificate
+                                                </a>
+                                            </Magnetic>
+                                        </div>
+                                    </motion.article>
+                                ))}
+                            </div>
+                        </section>
+
+                        {/* Languages */}
+                        <section aria-label="Languages" className="space-y-4">
+                            <h3 className="font-semibold text-lg">Languages</h3>
+                            <div className="card p-6">
+                                <ul className="text-sm space-y-1">
+                                    {languages.map((l) => (
+                                        <li key={l.name}>
+                                            <span className="font-medium">{l.name}</span> — {l.level}
                                         </li>
                                     ))}
                                 </ul>
                             </div>
                         </section>
 
-                        <section aria-label="Languages" className="space-y-4">
-                            <h3 className="font-semibold text-lg">Languages</h3>
-                            <div className="card p-6">
-                                <ul className="text-sm space-y-1">
-                                    {languages.map((l) => (
-                                        <li key={l.name}><span className="font-medium">{l.name}</span> — {l.level}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </section>
-
+                        {/* License */}
                         {licenses.length > 0 && (
                             <section aria-label="Licenses" className="space-y-4">
                                 <h3 className="font-semibold text-lg">License</h3>
@@ -161,7 +218,9 @@ export default function About() {
                                     {licenses.map((lic) => (
                                         <div key={lic.name} className="text-sm">
                                             <div className="font-medium">{lic.name}</div>
-                                            <div className="opacity-70">{lic.issuer} • {lic.valid}</div>
+                                            <div className="opacity-70">
+                                                {lic.issuer} • {lic.valid}
+                                            </div>
                                         </div>
                                     ))}
                                 </div>

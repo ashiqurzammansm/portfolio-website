@@ -52,7 +52,7 @@ export const profile = {
     phoneAlt: "+8801714010150",
     linkedin: "https://www.linkedin.com/in/smashiqurzamman",
     summary:
-        "Skilled Software Engineer with 5+ years in web and 1+ year in mobile app development. Experienced in MERN, Flutter, and Android (Kotlin). Focused on secure, user-friendly, and scalable solutions; passionate about technology, continuous learning, and teaching.",
+        "Experienced Software Engineer with over 6 years of combined expertise in web and mobile app development. Skilled in the MERN stack, Flutter, and Android (Kotlin), with a strong focus on building secure, scalable, and user-centric solutions. Passionate about innovation, continuous learning, and mentoring others in the tech community.",
 };
 
 // ---------- Experience ----------
@@ -184,7 +184,8 @@ export type Certification = {
     name: string;
     issuer: string;
     date: string;
-    url?: string;
+    verifyUrl: string;
+    certificateUrl: string;
 };
 
 export const certifications: Certification[] = [
@@ -192,26 +193,36 @@ export const certifications: Certification[] = [
         name: "Competency Based Training & Assessment Methodology (CBT&AM), Level-4",
         issuer: "BNQF • Desh Polytechnic College (Mirpur, Dhaka)",
         date: "Expected Dec 2025",
+        verifyUrl: "https://verify.example.com/cbtam-level4-12345",
+        certificateUrl: "/certificates/cbtam-level4.pdf",
     },
     {
         name: "Android Mobile Application Development (NSDA Level-4)",
         issuer: "BNQF • DIPTI, Dhaka",
         date: "Sep 2025",
+        verifyUrl: "https://verify.example.com/android-nsda-l4-67890",
+        certificateUrl: "/certificates/android-nsda-level4.pdf",
     },
     {
         name: "App Development with Flutter",
         issuer: "Ostad Limited",
         date: "Mar 2025",
+        verifyUrl: "https://verify.example.com/flutter-ostad-24680",
+        certificateUrl: "/certificates/flutter-cert.pdf",
     },
     {
         name: "Full-Stack Web Development with MERN",
         issuer: "Ostad Limited",
         date: "Jun 2024",
+        verifyUrl: "https://verify.example.com/mern-ostad-13579",
+        certificateUrl: "/certificates/mern-cert.pdf",
     },
     {
         name: "Mastering React JS, Next JS & Prisma",
         issuer: "Ostad Limited",
         date: "Nov 2023",
+        verifyUrl: "https://verify.example.com/react-next-prisma-97531",
+        certificateUrl: "/certificates/react-next-prisma.pdf",
     },
 ];
 
@@ -231,7 +242,7 @@ export const licenses = [
     },
 ];
 
-// ---------- Skills with SVG logo slugs ----------
+// ---------- Skills ----------
 export type SkillItem = { name: string; slug?: string };
 export type SkillCategory = { name: string; items: SkillItem[] };
 export type SkillGroup = { title: string; categories: SkillCategory[] };
@@ -294,5 +305,40 @@ export const skillGroups: SkillGroup[] = [
                 items: [{ name: "Git / GitHub", slug: "git" }],
             },
         ],
+    },
+];
+
+// ---------- Services ----------
+export type Service = {
+    id: string;
+    title: string;
+    desc: string;
+    cta?: string;
+};
+
+export const services: Service[] = [
+    {
+        id: "web-dev",
+        title: "Web Development",
+        desc: "Fast, modern, and responsive websites built with Next.js, React, and Tailwind CSS for performance and scalability.",
+        cta: "Learn More",
+    },
+    {
+        id: "mobile-dev",
+        title: "Mobile Apps Development",
+        desc: "Native Android apps developed with Kotlin, featuring clean architecture and smooth, reliable performance.",
+        cta: "View Projects",
+    },
+    {
+        id: "uiux",
+        title: "UI/UX Design",
+        desc: "Beautiful, intuitive, and user-centered interfaces designed in Figma for a seamless user experience.",
+        cta: "Explore Design",
+    },
+    {
+        id: "consult",
+        title: "Maintenance & Consultation",
+        desc: "Keep your apps up to date, optimized, and secure with ongoing maintenance or one-on-one consultation.",
+        cta: "Get Support",
     },
 ];
