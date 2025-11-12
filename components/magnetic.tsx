@@ -9,9 +9,9 @@ import {
 } from "framer-motion";
 
 type Props = {
-    /** How strongly the element is pulled (px) */
+    /** Pull strength in px */
     strength?: number;
-    /** Start pulling when the pointer is within this radius (px) */
+    /** Start pulling when pointer is within this radius (px) */
     radius?: number;
     /** Scale on hover */
     scale?: number;
@@ -31,16 +31,22 @@ export default function Magnetic({
     const mx = useMotionValue(0);
     const my = useMotionValue(0);
 
-    // smooth springs for nicer motion
+    // Springs for smoothness
     const sx = useSpring(mx, { stiffness: 300, damping: 20, mass: 0.5 });
     const sy = useSpring(my, { stiffness: 300, damping: 20, mass: 0.5 });
 
-    // ✅ Let TS infer the tuple type and read by index to avoid the compile error
-    const rotate: MotionValue<number> = useTransform([sx, sy], (vals) => {
-        const x = vals[0] ?? 0;
-        const y = vals[1] ?? 0;
-        return (x + y) * 0.03;
-    });
+    /**
+     * IMPORTANT: TypeScript sometimes infers the values array as {}[]
+     * in production builds. Explicitly type the param and cast to number.
+     */
+    const rotate: MotionValue<number> = useTransform(
+        [sx, sy],
+        (vals: unknown[]) => {
+            const x = (vals[0] as number) ?? 0;
+            const y = (vals[1] as number) ?? 0;
+            return (x + y) * 0.03;
+        }
+    );
 
     function onMouseMove(e: React.MouseEvent<HTMLDivElement>) {
         const el = ref.current;
@@ -52,7 +58,7 @@ export default function Magnetic({
         const distance = Math.hypot(relX, relY);
 
         if (distance < radius) {
-            // avoid division by 0 when pointer is exactly at center
+            // avoid division by zero when pointer is exactly at center
             const safe = distance === 0 ? 1 : distance;
             const pull = (1 - distance / radius) * strength;
             mx.set((relX / safe) * pull);
